@@ -1,5 +1,11 @@
 package bank_access;
 
-public class ManagerImplBase {
+public abstract class ManagerImplBase {
+	
+	public abstract String createAccount(String owner, String branch);
+	
+	public static ManagerImplBase narrowCast(Object rawObjectRef) {
+		//TODO
+	}
 
 }
