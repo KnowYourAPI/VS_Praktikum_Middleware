@@ -32,17 +32,18 @@ public class ObjectBroker {
 		this.nameService = nameService;
 	}
 	
-	public NameService getNameService() {
-		//TODO
-	}
-	
 	public void shutDown() {
-		//TODO
+		//TODO: Gibt es noch weiteres zu tun als das ComModule zu beenden?
+		communicationModule.shutdown();
 	}
 	
 	//------ weitere benoetigte Methoden ------
 	
+	public NameService getNameService() {
+		return nameService;
+	}
+	
 	public CommunicationModule getCommunicationModule() {
-		//TODO
+		return communicationModule;
 	}
 }
