@@ -2,7 +2,7 @@ package mware_lib.communicationModule;
 
 import java.net.Socket;
 
-public class RMISession extends Thread {
+class RMISession extends Thread {
 	
 	private Socket connectionSocket;
 	
@@ -10,6 +10,9 @@ public class RMISession extends Thread {
 		this.connectionSocket = connectionSocket;
 	}
 	
+	// TODO
+	// Hier werden eingehende RMI-Anfragen behandelt
+	// und an die entsprechenden Skeletons weitergeleitet
 	@Override
 	public void run() {
 		
