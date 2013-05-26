@@ -6,7 +6,7 @@ public class ObjectBroker {
 	
 	private static ObjectBroker instance;
 
-	public static ObjectBroker init(String serviceHost, int listenPort) {
+	public static ObjectBroker init(String nameserviceHost, int nameservicePort) {
 		if(instance == null) {
 			CommunicationModule communicationModule = new CommunicationModule();
 			RemoteReferenceModule remoteReferenceModule = new RemoteReferenceModule();
