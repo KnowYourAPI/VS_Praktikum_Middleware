@@ -13,6 +13,7 @@ public class CommunicationModule {
 		try {
 			Socket socket = new Socket(host, port);
 			writeToServer(socket, message);
+			socket.close();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -25,6 +26,9 @@ public class CommunicationModule {
 		
 		try {
 			Socket socket = new Socket(host, port);
+			writeToServer(socket, message);
+			answer = readFromServer(socket);
+			socket.close();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -34,11 +38,16 @@ public class CommunicationModule {
 		return answer;
 	}
 	
+	// Sende die uebergebene Nachricht an den uebergebenen Socket
+	// Jede Nachricht wird durch ein newline getrennt.
+	// Nachrichten duerfen daher keine newlines enthalten
 	private void writeToServer(Socket socket, String message) throws IOException {
 		DataOutputStream outToServer = new DataOutputStream(socket.getOutputStream());
 		outToServer.writeBytes(message + '\n' );
 	}
 	
+	// Lese die naechste Zeile aus dem uebergebenen Socket
+	// Blockiert, bis eine Nachricht angekommen ist, die mit einem newline endet
 	private String readFromServer(Socket socket) throws IOException {
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		return inFromServer.readLine();
