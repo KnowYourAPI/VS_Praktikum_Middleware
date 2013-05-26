@@ -13,4 +13,14 @@ public class ObjectBroker {
 	public void shutDown() {
 		//TODO
 	}
+	
+	//------ weitere benoetigte Methoden ------
+	
+	public static ObjectBroker getInstance() {
+		//TODO
+	}
+	
+	public CommunicationModule getCommunicationModule() {
+		//TODO
+	}
 }
