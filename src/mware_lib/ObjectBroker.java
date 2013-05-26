@@ -9,6 +9,7 @@ public class ObjectBroker {
 	public static ObjectBroker init(String nameserviceHost, int nameservicePort) {
 		if(instance == null) {
 			CommunicationModule communicationModule = new CommunicationModule();
+			communicationModule.start();
 			RemoteReferenceModule remoteReferenceModule = new RemoteReferenceModule();
 			//TODO: NameService-Implementierung
 			NameService nameService = new NameService();
