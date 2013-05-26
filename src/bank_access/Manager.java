@@ -1,7 +1,7 @@
 package bank_access;
 
-import mware_lib.CommunicationModule;
 import mware_lib.ObjectBroker;
+import mware_lib.communicationModule.CommunicationModule;
 
 public class Manager extends ManagerImplBase {
 

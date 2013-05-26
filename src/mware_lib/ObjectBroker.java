@@ -1,5 +1,7 @@
 package mware_lib;
 
+import mware_lib.communicationModule.CommunicationModule;
+
 public class ObjectBroker {
 
 	public static ObjectBroker init(String serviceHost, int listenPort) {

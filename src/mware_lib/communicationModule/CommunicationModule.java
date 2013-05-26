@@ -1,14 +1,54 @@
-package mware_lib;
+package mware_lib.communicationModule;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class CommunicationModule {
+public class CommunicationModule extends Thread {
 	
+	private ServerSocket serverSocket;
+	private boolean communicationServerRunning;
+	
+	public CommunicationModule() {
+		try {
+			//TODO: ServerSocket an zufaelligen Port binden(0)? Oder einen konstanten festlegen?
+			this.serverSocket = new ServerSocket(0);
+			this.communicationServerRunning = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Nimmt eingehende Verbindungsanfragen an und startet eine RMISession
+	// Die RMISession behandelt dann die eingehende RMI-Anfrage
+	@Override
+	public void run() {
+		while(communicationServerRunning) {
+			try {
+				Socket connectionSocket = serverSocket.accept();
+				(new RMISession(connectionSocket)).start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void shutdown() {
+		communicationServerRunning = false;
+		
+		try {
+			serverSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Sende eine Nachricht ohne eine Antwort zu erwarten
+	// (z.B. bei einer Funktion ohne Rueckgabewert)
 	public void send(String message, String host, int port) {
 		try {
 			Socket socket = new Socket(host, port);
@@ -21,6 +61,9 @@ public class CommunicationModule {
 		}
 	}
 	
+	
+	// Sende eine Nachricht und erwarte eine Antwort
+	// Die Methode blockiert, bis eine Antwort erhalten wurde
 	public String sendAndReceive(String message, String host, int port) {
 		String answer = null;
 		
