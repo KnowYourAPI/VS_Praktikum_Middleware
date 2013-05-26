@@ -13,9 +13,10 @@ public class CommunicationModule extends Thread {
 	private ServerSocket serverSocket;
 	private boolean communicationServerRunning;
 	
+	// Das CommunicationModule bindet sich an einen beliebigen Port.
+	// Dieser kann ueber getLocalPort() abgefragt werden.
 	public CommunicationModule() {
 		try {
-			//TODO: ServerSocket an zufaelligen Port binden(0)? Oder einen konstanten festlegen?
 			this.serverSocket = new ServerSocket(0);
 			this.communicationServerRunning = true;
 		} catch (IOException e) {
@@ -94,5 +95,10 @@ public class CommunicationModule extends Thread {
 	private String readFromServer(Socket socket) throws IOException {
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		return inFromServer.readLine();
+	}
+	
+	// Gibt den Port zurueck an den sich das CommunicationModule gebunden hat
+	public int getLocalPort() {
+		return serverSocket.getLocalPort();
 	}
 }
