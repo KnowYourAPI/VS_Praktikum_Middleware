@@ -7,6 +7,10 @@ public abstract class AccountImplBase {
 	public abstract double getBalance();
 	
 	public static AccountImplBase narrowCast (Object rawObjectRef) {
-		//TODO
+		String[] objectRefAry = ((String)rawObjectRef).split(":");
+		String host = objectRefAry[0];
+		int port = Integer.valueOf(objectRefAry[1]);
+		String name = objectRefAry[2];
+		return new Account(host, port, name);
 	}
 }
