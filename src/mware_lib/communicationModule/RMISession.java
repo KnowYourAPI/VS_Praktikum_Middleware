@@ -13,12 +13,12 @@ import mware_lib.Skeleton;
 class RMISession extends Thread {
 	
 	private Socket connectionSocket;
+	private final String NO_RETURN_VALUE = "void";
 	
 	public RMISession(Socket connectionSocket) {
 		this.connectionSocket = connectionSocket;
 	}
 	
-	// TODO
 	// Hier werden eingehende RMI-Anfragen behandelt
 	// und an die entsprechenden Skeletons weitergeleitet
 	// und dann die entsprechende Antwort zurueckgesendet
@@ -29,7 +29,14 @@ class RMISession extends Thread {
 			
 			String rmiMessage = readFromServer(connectionSocket);
 			RemoteReferenceModule remoteReferenceModule = ObjectBroker.getInstance().getRemoteReferenceModule();
-//			Skeleton skeleton = remoteReferenceModule.
+			Skeleton skeleton = remoteReferenceModule.getResponsibleSkeleton(rmiMessage);
+			String rmiResponse = skeleton.invokeMethod(rmiMessage);
+			
+			if(!rmiResponse.equals(NO_RETURN_VALUE)) {
+				writeToServer(connectionSocket, rmiResponse);
+			}
+
+			connectionSocket.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
