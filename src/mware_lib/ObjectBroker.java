@@ -47,4 +47,8 @@ public class ObjectBroker {
 	public CommunicationModule getCommunicationModule() {
 		return communicationModule;
 	}
+	
+	public RemoteReferenceModule getRemoteReferenceModule() {
+		return remoteReferenceModule;
+	}
 }
