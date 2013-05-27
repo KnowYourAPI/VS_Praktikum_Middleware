@@ -11,8 +11,7 @@ public class ObjectBroker {
 			CommunicationModule communicationModule = new CommunicationModule();
 			communicationModule.start();
 			RemoteReferenceModule remoteReferenceModule = new RemoteReferenceModule();
-			//TODO: NameService-Implementierung
-			NameService nameService = new NameService();
+			NameService nameService = new NameserviceStub(nameserviceHost, nameservicePort);
 			instance = new ObjectBroker(communicationModule, remoteReferenceModule, nameService);
 		}
 		return instance;
