@@ -22,7 +22,8 @@ public class Manager extends ManagerImplBase {
 	public String createAccount(String owner, String branch) {
 		ObjectBroker objectBroker = ObjectBroker.getInstance();
 		CommunicationModule communicationModule = objectBroker.getCommunicationModule();
-		String message = "INVOKE%" + this.objectReference + "%createAccount%String%" + owner + "%String%" + branch;
+		String stringType = "".getClass().getName();
+		String message = "INVOKE%" + this.objectReference + "%createAccount%" + stringType + "%" + owner + "%String%" + branch;
 		
 		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
 		String[] returnAry = returnString.split("%");
