@@ -30,6 +30,8 @@ class RMISession extends Thread {
 			RemoteReferenceModule remoteReferenceModule = ObjectBroker.getInstance().getRemoteReferenceModule();
 			Skeleton skeleton = remoteReferenceModule.getResponsibleSkeleton(rmiMessage);
 			String rmiResponse = skeleton.invokeMethod(rmiMessage);
+			System.out.println("Message: " + rmiMessage);
+			System.out.println("Response: " + rmiResponse);
 			writeToServer(connectionSocket, rmiResponse);
 			connectionSocket.close();
 			

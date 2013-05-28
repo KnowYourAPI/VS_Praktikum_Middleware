@@ -33,14 +33,13 @@ public class RemoteReferenceModule {
 								+ ":" + localMiddlewarePort
 								+ ":" + objectName;
 		localSkeletonDirectory.put(remoteReference, skeleton);
-		System.out.println("Save: " + remoteReference);
+
 		return remoteReference;		
 	}
 	
 	public Skeleton getResponsibleSkeleton(String message) {
-		System.out.println("Lookup: " + message);
 		String[] splitMessage = message.split("%");
-		String objectReference = splitMessage[2];
+		String objectReference = splitMessage[1];
 		return localSkeletonDirectory.get(objectReference);
 	}
 

@@ -1,7 +1,9 @@
 package mware_lib;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +45,9 @@ public class Skeleton {
 			parameterStrings[i] = splittedMessage[(i*2)+4]; // i * 2, weil wir ueber die type, value-paare iterieren, 3er offset + 1 fuer Wert
 		}
 		
+		System.out.println(Arrays.deepToString(parameterStrings));
+		System.out.println(Arrays.deepToString(typeStrings));
+		
 		Class<?>[] parameterTypes = new Class<?>[numberOfParameters];
 		
 		for(int i= 0; i < numberOfParameters; i++) {
@@ -57,7 +62,25 @@ public class Skeleton {
 			if(parameterTypes[i].isPrimitive()) {
 				parameters[i] = instanciatePrimitive(parameterStrings[i], parameterTypes[i]);
 			} else {
-//				parameters[i] = C;
+				Class<?> parameterClass = parameterTypes[i];
+				Class<?> constructorParameterString = parameterStrings[i].getClass();
+				Constructor<?> constructor;
+				try {
+					constructor = parameterClass.getConstructor(constructorParameterString);
+					parameters[i] = constructor.newInstance(parameterStrings[i]);
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				} catch (SecurityException e) {
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		

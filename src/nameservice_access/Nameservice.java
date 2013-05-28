@@ -12,6 +12,7 @@ public class Nameservice {
 	}
 
 	public synchronized void rebind(String name, String reference) {
+		System.out.println("Rebind: " + name + " -> " + reference);
 		nameToReference.put(name, reference);
 	}
 	

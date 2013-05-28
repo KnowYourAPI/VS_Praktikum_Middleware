@@ -23,14 +23,14 @@ public class NameserviceStub extends NameService {
 		RemoteReferenceModule remoteReferenceModule = ObjectBroker.getInstance().getRemoteReferenceModule();
 		String servantReference = remoteReferenceModule.save(name, servant);
 		//Ruft auf dem entfernten Nameservice auf: rebind(String name, String remoteReference);
-		String rebindMessage = "INVOKE%rebind%"
+		String rebindMessage = "INVOKE%"
 							 + nameserviceReference
-						 	 + "%" + STRING_CLASS_NAME
+						 	 + "%rebind%" + STRING_CLASS_NAME
 						 	 + "%" + name + "%" +
 						 	 STRING_CLASS_NAME + "%" + servantReference;
 		
 		CommunicationModule communicationModule = ObjectBroker.getInstance().getCommunicationModule();
-		communicationModule.send(rebindMessage, nameserviceHost, nameservicePort);
+		communicationModule.sendAndReceive(rebindMessage, nameserviceHost, nameservicePort);
 	}
 
 	@Override
