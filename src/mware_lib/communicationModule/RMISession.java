@@ -13,7 +13,6 @@ import mware_lib.Skeleton;
 class RMISession extends Thread {
 	
 	private Socket connectionSocket;
-	private final String NO_RETURN_VALUE = "void";
 	
 	public RMISession(Socket connectionSocket) {
 		this.connectionSocket = connectionSocket;
@@ -31,11 +30,7 @@ class RMISession extends Thread {
 			RemoteReferenceModule remoteReferenceModule = ObjectBroker.getInstance().getRemoteReferenceModule();
 			Skeleton skeleton = remoteReferenceModule.getResponsibleSkeleton(rmiMessage);
 			String rmiResponse = skeleton.invokeMethod(rmiMessage);
-			
-			if(!rmiResponse.equals(NO_RETURN_VALUE)) {
-				writeToServer(connectionSocket, rmiResponse);
-			}
-
+			writeToServer(connectionSocket, rmiResponse);
 			connectionSocket.close();
 			
 		} catch (IOException e) {
