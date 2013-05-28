@@ -3,8 +3,6 @@ package nameservice_access;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import com.sun.org.apache.xml.internal.security.Init;
-
 import mware_lib.ObjectBroker;
 
 public class Main {
