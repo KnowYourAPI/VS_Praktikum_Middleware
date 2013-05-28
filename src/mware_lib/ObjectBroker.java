@@ -17,6 +17,17 @@ public class ObjectBroker {
 		return instance;
 	}
 	
+	public static ObjectBroker init(String nameserviceHost, int nameservicePort, int middlewarePort) {
+		if(instance == null) {
+			CommunicationModule communicationModule = new CommunicationModule(middlewarePort);
+			communicationModule.start();
+			RemoteReferenceModule remoteReferenceModule = new RemoteReferenceModule();
+			NameService nameService = new NameserviceStub(nameserviceHost, nameservicePort);
+			instance = new ObjectBroker(communicationModule, remoteReferenceModule, nameService);
+		}
+		return instance;
+	}
+	
 	public static ObjectBroker getInstance() {
 		return instance;
 	}
