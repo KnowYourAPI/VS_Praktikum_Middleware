@@ -28,10 +28,11 @@ public class Account extends AccountImplBase{
 		String[] returnAry = returnString.split("%");
 		if (returnAry[0].equalsIgnoreCase("ERROR")) {
 			try {
-				Class<?> classToThrow = Class.forName(returnAry[1]);
+				String errorType = returnAry[1];
+				Class<?> classToThrow = Class.forName(errorType);
 				Constructor<?> konstruktor = classToThrow.getConstructor(new Class[] {"".getClass()});
-								
-				Object exception = konstruktor.newInstance(new Object[]{returnAry[2]});
+				String errorMessage = returnAry[2];			
+				Object exception = konstruktor.newInstance(new Object[]{errorMessage});
 				if (exception instanceof OverdraftException) {
 					throw (OverdraftException) exception;				
 				} else {
@@ -67,14 +68,14 @@ public class Account extends AccountImplBase{
 		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
 		String[] returnAry = returnString.split("%");
 		String returnDifferentiation = returnAry[0];
-		String returnValue = returnAry[2];
 
 		if (returnDifferentiation.equalsIgnoreCase("ERROR")) {
 			try {
-				Class<?> classToThrow = Class.forName(returnAry[1]);
+				String errorType = returnAry[1];
+				Class<?> classToThrow = Class.forName(errorType);
 				Constructor<?> konstruktor = classToThrow.getConstructor(new Class[] {"".getClass()});
-								
-				Object exception = konstruktor.newInstance(new Object[]{returnAry[2]});
+				String errorMessage = returnAry[2];					
+				Object exception = konstruktor.newInstance(new Object[]{errorMessage});
 
 				throw (RuntimeException) exception;
 				
@@ -95,6 +96,7 @@ public class Account extends AccountImplBase{
 			}
 		}
 
+		String returnValue = returnAry[2];
 		return Double.valueOf(returnValue);
 	}
 

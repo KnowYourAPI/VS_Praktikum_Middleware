@@ -31,10 +31,12 @@ public class Manager extends ManagerImplBase {
 		
 		if (returnDifferentiation.equalsIgnoreCase("ERROR")) {
 			try {
-				Class<?> classToThrow = Class.forName(returnAry[1]);
+				String errorType = returnAry[1];
+				Class<?> classToThrow = Class.forName(errorType);
 				Constructor<?> konstruktor = classToThrow.getConstructor(new Class[] {"".getClass()});
 								
-				Object exception = konstruktor.newInstance(new Object[]{returnAry[2]});
+				String errorMessage = returnAry[2];			
+				Object exception = konstruktor.newInstance(new Object[]{errorMessage});
 
 				throw (RuntimeException) exception;
 				
