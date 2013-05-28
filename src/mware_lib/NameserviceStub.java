@@ -35,9 +35,9 @@ public class NameserviceStub extends NameService {
 
 	@Override
 	public Object resolve(String name) {
-		String resolveMessage = "INVOKE%resolve%" 
+		String resolveMessage = "INVOKE%" 
 							  + nameserviceReference
-							  + "%" + STRING_CLASS_NAME + "%" + name;
+							  + "%resolve%" + STRING_CLASS_NAME + "%" + name;
 		CommunicationModule communicationModule = ObjectBroker.getInstance().getCommunicationModule();
 		String resolveResponse = communicationModule.sendAndReceive(resolveMessage, nameserviceHost, nameservicePort);
 		//resolveResponse = "RETURN%<Type>%<Value>"
