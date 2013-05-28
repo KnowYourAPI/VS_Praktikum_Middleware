@@ -17,11 +17,11 @@ public class Nameservice {
 		this.nameToReference = new HashMap<String, String>();
 	}
 
-	public void rebind(String name, String reference) {
+	public synchronized void rebind(String name, String reference) {
 		nameToReference.put(name, reference);
 	}
 	
-	public String resolve(String name) {
+	public synchronized String resolve(String name) {
 		return nameToReference.get(name);
 	}
 		
