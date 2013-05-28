@@ -40,7 +40,7 @@ public class RemoteReferenceModule {
 	public Skeleton getResponsibleSkeleton(String message) {
 		System.out.println("Lookup: " + message);
 		String[] splitMessage = message.split("%");
-		String objectReference = splitMessage[1];
+		String objectReference = splitMessage[2];
 		return localSkeletonDirectory.get(objectReference);
 	}
 
