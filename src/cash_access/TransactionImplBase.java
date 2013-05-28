@@ -1,7 +1,5 @@
 package cash_access;
 
-import bank_access.Account;
-
 public abstract class TransactionImplBase {
 	
 	public abstract void deposit(String accountID, double amount);
