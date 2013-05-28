@@ -39,51 +39,53 @@ public class Skeleton {
 		int numberOfParameters = (splittedMessage.length - 3) / 2;
 		String[] typeStrings = new String[numberOfParameters];
 		String[] parameterStrings = new String[numberOfParameters];
-		
-		for(int i = 0; i < numberOfParameters; i ++) {
-			typeStrings[i] = splittedMessage[(i*2)+3]; // i * 2, weil wir ueber die type, value-paare iterieren, 3er offset + 0 fuer Typ
-			parameterStrings[i] = splittedMessage[(i*2)+4]; // i * 2, weil wir ueber die type, value-paare iterieren, 3er offset + 1 fuer Wert
-		}
-		
-		System.out.println(Arrays.deepToString(parameterStrings));
-		System.out.println(Arrays.deepToString(typeStrings));
-		
 		Class<?>[] parameterTypes = new Class<?>[numberOfParameters];
-		
-		for(int i= 0; i < numberOfParameters; i++) {
-			parameterTypes[i] = getClassByName(typeStrings[i]);
-		}
-		
-		// Parameterobjekte aus Strings erzeugen
-		
 		Object[] parameters = new Object[numberOfParameters];
-		
-		for(int i = 0; i < numberOfParameters; i++) {
-			if(parameterTypes[i].isPrimitive()) {
-				parameters[i] = instanciatePrimitive(parameterStrings[i], parameterTypes[i]);
-			} else {
-				Class<?> parameterClass = parameterTypes[i];
-				Class<?> constructorParameterString = parameterStrings[i].getClass();
-				Constructor<?> constructor;
-				try {
-					constructor = parameterClass.getConstructor(constructorParameterString);
-					parameters[i] = constructor.newInstance(parameterStrings[i]);
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
+
+		if(splittedMessage.length > 3) {
+			
+			for(int i = 0; i < numberOfParameters; i ++) {
+				typeStrings[i] = splittedMessage[(i*2)+3]; // i * 2, weil wir ueber die type, value-paare iterieren, 3er offset + 0 fuer Typ
+				parameterStrings[i] = splittedMessage[(i*2)+4]; // i * 2, weil wir ueber die type, value-paare iterieren, 3er offset + 1 fuer Wert
+			}
+			
+			System.out.println(Arrays.deepToString(parameterStrings));
+			System.out.println(Arrays.deepToString(typeStrings));
+			
+			
+			for(int i= 0; i < numberOfParameters; i++) {
+				parameterTypes[i] = getClassByName(typeStrings[i]);
+			}
+			
+			// Parameterobjekte aus Strings erzeugen
+			
+			
+			for(int i = 0; i < numberOfParameters; i++) {
+				if(parameterTypes[i].isPrimitive()) {
+					parameters[i] = instanciatePrimitive(parameterStrings[i], parameterTypes[i]);
+				} else {
+					Class<?> parameterClass = parameterTypes[i];
+					Class<?> constructorParameterString = parameterStrings[i].getClass();
+					Constructor<?> constructor;
+					try {
+						constructor = parameterClass.getConstructor(constructorParameterString);
+						parameters[i] = constructor.newInstance(parameterStrings[i]);
+					} catch (NoSuchMethodException e) {
+						e.printStackTrace();
+					} catch (SecurityException e) {
+						e.printStackTrace();
+					} catch (InstantiationException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
-		
 		// Methodenaufruf
 		
 		Class<?> realObjectClass = realObject.getClass();
