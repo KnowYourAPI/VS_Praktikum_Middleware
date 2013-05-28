@@ -24,6 +24,15 @@ public class CommunicationModule extends Thread {
 		}
 	}
 	
+	public CommunicationModule(int middlewarePort) {
+		try {
+			this.serverSocket = new ServerSocket(middlewarePort);
+			this.communicationServerRunning = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// Nimmt eingehende Verbindungsanfragen an und startet eine RMISession
 	// Die RMISession behandelt dann die eingehende RMI-Anfrage
 	@Override
