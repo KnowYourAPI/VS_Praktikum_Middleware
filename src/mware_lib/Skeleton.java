@@ -102,6 +102,7 @@ public class Skeleton {
 		Object returnValue = null;
 
 		try {
+			toBeInvoked.setAccessible(true);
 			returnValue = toBeInvoked.invoke(realObject, parameters);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
