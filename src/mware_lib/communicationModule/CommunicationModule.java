@@ -42,7 +42,7 @@ public class CommunicationModule extends Thread {
 				Socket connectionSocket = serverSocket.accept();
 				(new RMISession(connectionSocket)).start();
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("Server shutting down.");
 			}
 		}
 	}

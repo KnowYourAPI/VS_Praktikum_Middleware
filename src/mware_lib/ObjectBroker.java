@@ -44,7 +44,7 @@ public class ObjectBroker {
 	}
 	
 	public void shutDown() {
-		//TODO: Gibt es noch weiteres zu tun als das ComModule zu beenden?
+		instance = null;
 		communicationModule.shutdown();
 	}
 	
