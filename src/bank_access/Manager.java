@@ -1,5 +1,8 @@
 package bank_access;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import mware_lib.ObjectBroker;
 import mware_lib.communicationModule.CommunicationModule;
 
@@ -20,11 +23,39 @@ public class Manager extends ManagerImplBase {
 		ObjectBroker objectBroker = ObjectBroker.getInstance();
 		CommunicationModule communicationModule = objectBroker.getCommunicationModule();
 		String message = "INVOKE%" + this.name + "%createAccount%String%" + owner + "%String%" + branch;
-		communicationModule.send(message, this.host, this.port);
+		
+		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
+		String[] returnAry = returnString.split("%");
+		String returnDifferentiation = returnAry[0];
+		String returnValue = returnAry[2];
+		
+		if (returnDifferentiation.equalsIgnoreCase("ERROR")) {
+			try {
+				Class<?> classToThrow = Class.forName(returnAry[1]);
+				Constructor<?> konstruktor = classToThrow.getConstructor(new Class[] {"".getClass()});
+								
+				Object exception = konstruktor.newInstance(new Object[]{returnAry[2]});
 
-		// und wie komme ich jetzt an den Returnwert?
-		// ? return communicationModule.recieve();
-		// TODO
+				throw (RuntimeException) exception;
+				
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return returnValue;
 	}
 
 }
