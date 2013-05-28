@@ -5,6 +5,7 @@ import mware_lib.communicationModule.CommunicationModule;
 public class NameserviceStub extends NameService {
 
 	private final String NAMESVERVICE_NAME = "nameservice";
+	private final String STRING_CLASS_NAME = String.class.getName();
 	private String nameserviceHost;
 	private int nameservicePort;
 	private String nameserviceReference;
@@ -22,7 +23,11 @@ public class NameserviceStub extends NameService {
 		RemoteReferenceModule remoteReferenceModule = ObjectBroker.getInstance().getRemoteReferenceModule();
 		String servantReference = remoteReferenceModule.save(name, servant);
 		//Ruft auf dem entfernten Nameservice auf: rebind(String name, String remoteReference);
-		String rebindMessage = "INVOKE%rebind%" + nameserviceReference + "%String%" + name + "%String%" + servantReference;
+		String rebindMessage = "INVOKE%rebind%"
+							 + nameserviceReference
+						 	 + "%" + STRING_CLASS_NAME
+						 	 + "%" + name + "%" +
+						 	 STRING_CLASS_NAME + "%" + servantReference;
 		
 		CommunicationModule communicationModule = ObjectBroker.getInstance().getCommunicationModule();
 		communicationModule.send(rebindMessage, nameserviceHost, nameservicePort);
@@ -30,7 +35,9 @@ public class NameserviceStub extends NameService {
 
 	@Override
 	public Object resolve(String name) {
-		String resolveMessage = "INVOKE%resolve%" + nameserviceReference + "%String%" + name;
+		String resolveMessage = "INVOKE%resolve%" 
+							  + nameserviceReference
+							  + "%" + STRING_CLASS_NAME + "%" + name;
 		CommunicationModule communicationModule = ObjectBroker.getInstance().getCommunicationModule();
 		String resolveResponse = communicationModule.sendAndReceive(resolveMessage, nameserviceHost, nameservicePort);
 		//resolveResponse = "RETURN%<Type>%<Value>"
