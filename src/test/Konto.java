@@ -7,7 +7,7 @@ public class Konto extends TransactionImplBase {
 
 	@Override
 	public void deposit(String accountID, double amount) {
-		System.out.println("Deposist called with: " + accountID + ", " + amount);
+		System.out.println("Deposit called with: " + accountID + ", " + amount);
 	}
 
 	@Override

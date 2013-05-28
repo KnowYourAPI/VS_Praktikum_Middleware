@@ -3,7 +3,7 @@ package test;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import bank_access.AccountImplBase;
+import cash_access.TransactionImplBase;
 
 import mware_lib.NameService;
 import mware_lib.ObjectBroker;
@@ -17,10 +17,9 @@ public class Systemtest {
 		Konto konto = new Konto();
 		nameService.rebind(konto, "MeinKonto");
 		Object objectReference = nameService.resolve("MeinKonto");
-		AccountImplBase remoteKonto = AccountImplBase.narrowCast(objectReference);
-		remoteKonto.getBalance();
+		TransactionImplBase remoteKonto = TransactionImplBase.narrowCast(objectReference);
+		remoteKonto.getBalance("MeineKontoID");
 		
-
 	}
 
 }
