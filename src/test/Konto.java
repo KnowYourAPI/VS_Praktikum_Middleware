@@ -14,7 +14,7 @@ public class Konto extends TransactionImplBase {
 	public void withdraw(String accountID, double amount)
 			throws OverdraftException {
 		System.out.println("Withdraw called with: " + accountID + ", " + amount);
-		
+		throw new OverdraftException("Meine tolle Errormessage :)");
 	}
 
 	@Override

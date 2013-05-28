@@ -3,6 +3,7 @@ package test;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import cash_access.OverdraftException;
 import cash_access.TransactionImplBase;
 
 import mware_lib.NameService;
@@ -18,8 +19,14 @@ public class Systemtest {
 		nameService.rebind(konto, "MeinKonto");
 		Object objectReference = nameService.resolve("MeinKonto");
 		TransactionImplBase remoteKonto = TransactionImplBase.narrowCast(objectReference);
-		remoteKonto.getBalance("MeineKontoID");
+		try {
+			remoteKonto.withdraw("Klaus", 720);
+		} catch (OverdraftException e) {
+			System.out.println("OverdraftException gefangen :)");
+			System.out.println("Message: " + e.getMessage());
+		}
 		
+		objectBroker.shutDown();
 	}
 
 }
