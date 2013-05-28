@@ -22,7 +22,8 @@ public class Transaction extends TransactionImplBase{
 	public void deposit(String accountID, double amount) {
 		ObjectBroker objectBroker = ObjectBroker.getInstance();
 		CommunicationModule communicationModule = objectBroker.getCommunicationModule();
-		String message = "INVOKE%" + this.objectReference + "%deposit%String%" + accountID + "%double%" + amount;
+		String stringType = "".getClass().getName();
+		String message = "INVOKE%" + this.objectReference + "%deposit%" + stringType + "%" + accountID + "%double%" + amount;
 		
 		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
 		String[] returnAry = returnString.split("%");
@@ -59,7 +60,8 @@ public class Transaction extends TransactionImplBase{
 	public void withdraw(String accountID, double amount) throws OverdraftException {
 		ObjectBroker objectBroker = ObjectBroker.getInstance();
 		CommunicationModule communicationModule = objectBroker.getCommunicationModule();
-		String message = "INVOKE%" + this.objectReference + "%withdraw%String%" + accountID + "%double%" + amount;
+		String stringType = "".getClass().getName();
+		String message = "INVOKE%" + this.objectReference + "%withdraw%" + stringType + "%" + accountID + "%double%" + amount;
 	
 		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
 		String[] returnAry = returnString.split("%");
@@ -99,7 +101,8 @@ public class Transaction extends TransactionImplBase{
 	public double getBalance(String accountID) {
 		ObjectBroker objectBroker = ObjectBroker.getInstance();
 		CommunicationModule communicationModule = objectBroker.getCommunicationModule();
-		String message = "INVOKE%" + this.objectReference + "%getBalance%String%" + accountID;
+		String stringType = "".getClass().getName();
+		String message = "INVOKE%" + this.objectReference + "%getBalance%" + stringType + "%" + accountID;
 	
 		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
 		String[] returnAry = returnString.split("%");
