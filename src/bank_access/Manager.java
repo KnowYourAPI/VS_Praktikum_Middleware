@@ -10,19 +10,19 @@ public class Manager extends ManagerImplBase {
 
 	String host;
 	int port; 
-	String name;
+	String objectReference;
 	
-	public Manager(String host, int port, String name) {
+	public Manager(String host, int port, String objectReference) {
 		this.host = host;
 		this.port = port;
-		this.name = name;
+		this.objectReference = objectReference;
 	}
 	
 	@Override
 	public String createAccount(String owner, String branch) {
 		ObjectBroker objectBroker = ObjectBroker.getInstance();
 		CommunicationModule communicationModule = objectBroker.getCommunicationModule();
-		String message = "INVOKE%" + this.name + "%createAccount%String%" + owner + "%String%" + branch;
+		String message = "INVOKE%" + this.objectReference + "%createAccount%String%" + owner + "%String%" + branch;
 		
 		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
 		String[] returnAry = returnString.split("%");

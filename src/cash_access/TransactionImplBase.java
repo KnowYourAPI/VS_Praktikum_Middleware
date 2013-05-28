@@ -12,7 +12,6 @@ public abstract class TransactionImplBase {
 		String[] objectRefAry = ((String)rawObjectRef).split(":");
 		String host = objectRefAry[0];
 		int port = Integer.valueOf(objectRefAry[1]);
-		String name = objectRefAry[2];
-		return new Transaction(host, port, name);
+		return new Transaction(host, port, (String)rawObjectRef);
 	}
 }

@@ -10,7 +10,6 @@ public abstract class AccountImplBase {
 		String[] objectRefAry = ((String)rawObjectRef).split(":");
 		String host = objectRefAry[0];
 		int port = Integer.valueOf(objectRefAry[1]);
-		String name = objectRefAry[2];
-		return new Account(host, port, name);
+		return new Account(host, port, (String)rawObjectRef);
 	}
 }

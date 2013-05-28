@@ -8,8 +8,7 @@ public abstract class ManagerImplBase {
 		String[] objectRefAry = ((String)rawObjectRef).split(":");
 		String host = objectRefAry[0];
 		int port = Integer.valueOf(objectRefAry[1]);
-		String name = objectRefAry[2];
-		return new Manager(host, port, name);
+		return new Manager(host, port, (String)rawObjectRef);
 	}
 
 }

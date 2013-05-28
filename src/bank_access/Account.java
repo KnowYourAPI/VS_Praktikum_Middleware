@@ -10,19 +10,19 @@ public class Account extends AccountImplBase{
 
 	String host;
 	int port; 
-	String name;
+	String objectReference;
 	
-	public Account(String host, int port, String name) {
+	public Account(String host, int port, String objectReference) {
 		this.host = host;
 		this.port = port;
-		this.name = name;
+		this.objectReference = objectReference;
 	}
 	
 	@Override
 	public void transfer(double amount) throws OverdraftException {
 		ObjectBroker objectBroker = ObjectBroker.getInstance();
 		CommunicationModule communicationModule = objectBroker.getCommunicationModule();
-		String message = "INVOKE%" + this.name + "%transfer%double%" + amount;
+		String message = "INVOKE%" + this.objectReference + "%transfer%double%" + amount;
 		
 		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
 		String[] returnAry = returnString.split("%");
@@ -63,7 +63,7 @@ public class Account extends AccountImplBase{
 		
 		ObjectBroker objectBroker = ObjectBroker.getInstance();
 		CommunicationModule communicationModule = objectBroker.getCommunicationModule();
-		String message = "INVOKE%" + this.name + "%getBalance";
+		String message = "INVOKE%" + this.objectReference + "%getBalance";
 		
 		String returnString = communicationModule.sendAndReceive(message, this.host, this.port);
 		String[] returnAry = returnString.split("%");
