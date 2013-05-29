@@ -2,8 +2,8 @@ package mware_lib;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import mware_lib.communicationModule.CommunicationModule;
 
@@ -12,7 +12,7 @@ public class RemoteReferenceModule {
 	private Map<String, Skeleton> localSkeletonDirectory;
 	
 	public RemoteReferenceModule() {
-		this.localSkeletonDirectory = new HashMap<String, Skeleton>();
+		this.localSkeletonDirectory = new ConcurrentHashMap<String, Skeleton>();
 	}
 	
 	// Erstellt ein Skeleton fuer das uebergebene Objekt,
