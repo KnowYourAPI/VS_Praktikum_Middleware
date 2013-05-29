@@ -49,10 +49,6 @@ public class Skeleton {
 				parameterStrings[i] = splittedMessage[(i*2)+4]; // i * 2, weil wir ueber die type, value-paare iterieren, 3er offset + 1 fuer Wert
 			}
 			
-			System.out.println(Arrays.deepToString(parameterStrings));
-			System.out.println(Arrays.deepToString(typeStrings));
-			
-			
 			for(int i= 0; i < numberOfParameters; i++) {
 				parameterTypes[i] = getClassByName(typeStrings[i]);
 			}
